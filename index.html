@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Indro Landing Page</title>
+
+<style>
+/* =========================
+   RESET
+========================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background:#f7f8fc;
+  color:#121826;
+  overflow-x:hidden;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button{
+  border:none;
+  outline:none;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+.container{
+  width:100%;
+  max-width:1200px;
+  margin:auto;
+  padding:0 20px;
+}
+
+.section{
+  padding:90px 0;
+}
+
+.title{
+  font-size:48px;
+  line-height:1.1;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+
+.subtitle{
+  font-size:18px;
+  color:#6b7280;
+  line-height:1.8;
+  margin-top:18px;
+}
+
+.btn{
+  padding:15px 28px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:15px;
+  transition:.25s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#5f45ff,#6d5dff);
+  color:#fff;
+  box-shadow:0 12px 25px rgba(92,73,255,.25);
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+}
+
+.btn-light{
+  background:#fff;
+  color:#111827;
+  border:1px solid #ececec;
+}
+
+.btn-dark{
+  background:#111827;
+  color:#fff;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+header{
+  position:sticky;
+  top:0;
+  z-index:998;
+  background:rgba(247,248,252,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,.03);
+}
+
+.nav{
+  height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:22px;
+}
+
+.logo-icon{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6a5cff,#4837ff);
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:34px;
+  color:#475467;
+  font-weight:600;
+  font-size:15px;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.menu{
+  display:none;
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* =========================
+   MOBILE MENU DRAWER (ADDED)
+========================= */
+.mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
+  background: #fff;
+  z-index: 1000;
+  padding: 30px 20px;
+  box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-drawer.open {
+  right: 0;
+}
+
+.close-menu {
+  align-self: flex-end;
+  font-size: 32px;
+  cursor: pointer;
+  color: #121826;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.mobile-drawer a {
+  font-size: 18px;
+  font-weight: 600;
+  color: #475467;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef0f6;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero{
+  padding:80px 0 50px;
+  text-align:center;
+  position:relative;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+  radial-gradient(circle at 50% 20%, rgba(103,88,255,.12), transparent 35%);
+  pointer-events:none;
+}
+
+.hero small{
+  color:#6a5cff;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.hero h1{
+  margin-top:18px;
+  font-size:76px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-3px;
+}
+
+.hero p{
+  max-width:700px;
+  margin:28px auto 0;
+  font-size:19px;
+  color:#667085;
+  line-height:1.9;
+}
+
+.hero-btns{
+  margin-top:35px;
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+/* =========================
+   STATS
+========================= */
+.stats{
+  margin-top:55px;
+  background:#fff;
+  border-radius:20px;
+  padding:30px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  box-shadow:0 10px 35px rgba(0,0,0,.04);
+}
+
+.stat{
+  text-align:center;
+}
+
+.stat h3{
+  font-size:34px;
+  font-weight:900;
+}
+
+.stat p{
+  color:#6b7280;
+  font-weight:600;
+  margin-top:8px;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+.center{
+  text-align:center;
+}
+
+.cards{
+  margin-top:55px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+.card{
+  background:#fff;
+  padding:28px;
+  border-radius:22px;
+  border:1px solid #eef0f6;
+  transition:.25s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.icon{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.blue{background:#eef2ff;color:#5f45ff;}
+.green{background:#ecfdf3;color:#16a34a;}
+.orange{background:#fff7ed;color:#ea580c;}
+.purple{background:#f5f3ff;color:#7c3aed;}
+
+.card h4{
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#6b7280;
+  line-height:1.7;
+}
+
+/* =========================
+   FEATURE BLOCKS
+========================= */
+.feature-wrap{
+  display:grid;
+  gap:28px;
+}
+
+.feature{
+  background:#fff;
+  border-radius:28px;
+  padding:45px;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:30px;
+  align-items:center;
+  border:1px solid #eef0f6;
+}
+
+.feature:nth-child(1) .mock{
+  background:linear-gradient(135deg,#f4f3ff,#ffffff);
+}
+
+.feature:nth-child(2) .mock{
+  background:linear-gradient(135deg,#ecfff4,#ffffff);
+}
+
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:18px;
+}
+
+.badge.p1{
+  background:#eef2ff;
+  color:#5f45ff;
+}
+
+.badge.p2{
+  background:#ecfdf3;
+  color:#16a34a;
+}
+
+.feature h3{
+  font-size:38px;
+  line-height:1.15;
+  margin-bottom:18px;
+}
+
+.feature ul{
+  list-style:none;
+  display:grid;
+  gap:14px;
+  color:#475467;
+  margin-bottom:24px;
+}
+
+.feature ul li::before{
+  content:"✓";
+  color:#6a5cff;
+  margin-right:10px;
+  font-weight:900;
+}
+
+.mock{
+  min-height:280px;
+  border-radius:24px;
+}
+
+/* =========================
+   WARRANTY
+========================= */
+.warranty{
+  text-align:center;
+}
+
+.warranty-icon{
+  width:80px;
+  height:80px;
+  border-radius:24px;
+  background:#f0ecff;
+  color:#5f45ff;
+  font-size:34px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 24px;
+}
+
+.points{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:26px;
+  flex-wrap:wrap;
+}
+
+.points span{
+  background:#fff;
+  padding:12px 18px;
+  border-radius:999px;
+  font-weight:700;
+  border:1px solid #eceef4;
+}
+
+/* =========================
+   CTA
+========================= */
+.cta{
+  background:#eef0ff;
+  text-align:center;
+  border-radius:34px;
+  padding:80px 30px;
+}
+
+.cta h2{
+  font-size:52px;
+  font-weight:900;
+  line-height:1.1;
+}
+
+.cta p{
+  margin:18px auto 30px;
+  max-width:720px;
+  color:#667085;
+  font-size:18px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer{
+  padding:70px 0 40px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:40px;
+}
+
+.footer-col h5{
+  font-size:18px;
+  margin-bottom:18px;
+}
+
+.footer-col a{
+  display:block;
+  margin-bottom:14px;
+  color:#6b7280;
+}
+
+.copy{
+  margin-top:40px;
+  padding-top:20px;
+  border-top:1px solid #e5e7eb;
+  color:#6b7280;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width:992px){
+  .hero h1{
+    font-size:58px;
+  }
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+  .feature{
+    grid-template-columns:1fr;
+  }
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media (max-width:768px){
+  .nav-links,
+  .nav-right .btn-light{
+    display:none;
+  }
+  .menu{
+    display:block;
+  }
+  .hero{
+    padding-top:50px;
+  }
+  .hero h1{
+    font-size:44px;
+    letter-spacing:-2px;
+  }
+  .hero p{
+    font-size:16px;
+  }
+  .stats{
+    grid-template-columns:1fr;
+  }
+  .cards{
+    grid-template-columns:1fr;
+  }
+  .title{
+    font-size:38px;
+  }
+  .feature{
+    padding:30px;
+  }
+  .feature h3{
+    font-size:28px;
+  }
+  .cta h2{
+    font-size:38px;
+  }
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">
+      <div class="logo-icon"></div>
+      INDRO
+    </div>
+
+    <div class="nav-links">
+      <a href="#">How It Works</a>
+      <a href="#">For Clients</a>
+      <a href="#">For Devs</a>
+      <a href="#">FAQ</a>
+    </div>
+
+    <div class="nav-right">
+      <button class="btn btn-light">Login</button>
+      <button class="btn btn-primary">Get Started</button>
+      <div class="menu">☰</div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-overlay"></div>
+<div class="mobile-drawer">
+  <div class="close-menu">×</div>
+  <a href="#">How It Works</a>
+  <a href="#">For Clients</a>
+  <a href="#">For Devs</a>
+  <a href="#">FAQ</a>
+  <button class="btn btn-light" style="margin-top: 20px;">Login</button>
+  <button class="btn btn-primary" style="margin-top: 10px;">Get Started</button>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <small>APP DEVELOPMENT MARKETPLACE</small>
+    <h1>Zero Bidding.</h1>
+    <p>
+      Indro is the premium platform marketplace where clients post funded app projects
+      and verified developers claim, build and deliver them securely.
+      No negotiation chaos.
+    </p>
+
+    <div class="hero-btns">
+      <button class="btn btn-primary">Post A Tender</button>
+      <button class="btn btn-light">Claim A Project</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <h3>1.2k+</h3>
+        <p>Active Vendors</p>
+      </div>
+      <div class="stat">
+        <h3 style="color:#16a34a">$4M+</h3>
+        <p>Escrow Secured</p>
+      </div>
+      <div class="stat">
+        <h3>30 Days</h3>
+        <p>Guarantee</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container center">
+    <h2 class="title">How Indro Works</h2>
+    <p class="subtitle">
+      Replace traditional freelancing with a fixed trust-first system.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="icon blue">1</div>
+        <h4>Post Tender</h4>
+        <p>Create your project with budget and timeline.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon green">2</div>
+        <h4>Fund Escrow</h4>
+        <p>Deposit funds securely before work starts.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon orange">3</div>
+        <h4>Dev Claims</h4>
+        <p>Verified developer claims your project instantly.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon purple">4</div>
+        <h4>Delivery</h4>
+        <p>Receive polished delivery with guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container feature-wrap">
+
+    <div class="feature">
+      <div>
+        <span class="badge p1">FOR CLIENTS</span>
+        <h3>Your app, ready with verified developers.</h3>
+
+        <ul>
+          <li>No bidding wars or endless proposals</li>
+          <li>Pre-screened premium talent</li>
+          <li>Fast claim and kickoff</li>
+          <li>Secure payments with protection</li>
+        </ul>
+
+        <button class="btn btn-dark">Post Your App Project</button>
+      </div>
+
+      <div class="mock"></div>
+    </div>
+
+    <div class="feature">
+      <div>
+        <span class="badge p2">FOR DEVELOPERS</span>
+        <h3>Ready projects. Guaranteed payments.</h3>
+
+        <ul>
+          <li>Claim funded projects immediately</li>
+          <li>No chasing clients</li>
+          <li>Build premium apps for serious buyers</li>
+          <li>Fast payouts after milestones</li>
+        </ul>
+
+        <button class="btn btn-dark">Apply As Developer</button>
+      </div>
+
+      <div class="mock"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section warranty">
+  <div class="container">
+    <div class="warranty-icon">🛡</div>
+    <h2 class="title">The 30-Day Indro Warranty</h2>
+    <p class="subtitle">
+      Every matched project includes a warranty window for bug fixes,
+      confidence and support after delivery.
+    </p>
+
+    <div class="points">
+      <span>Bug Fixes</span>
+      <span>Fast Support</span>
+      <span>Confidence</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta">
+      <h2>Build Apps Faster with Indro</h2>
+      <p>
+        Join the premium fixed-price ecosystem for clients and developers.
+      </p>
+      <button class="btn btn-primary">Get Started Now</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:18px;">
+          <div class="logo-icon"></div>
+          INDRO
+        </div>
+        <p style="color:#6b7280;line-height:1.8;">
+          A premium zero-bidding marketplace for app projects and verified 
+          developers.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <a href="#">Post Project</a>
+        <a href="#">For Clients</a>
+        <a href="#">For Developers</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+      </div>
+
+    </div>
+
+    <div class="copy">
+      © 2026 Indro Platform. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Mobile Menu Drawer Logic (ADDED) */
+const menuBtn = document.querySelector(".menu");
+const closeBtn = document.querySelector(".close-menu");
+const drawer = document.querySelector(".mobile-drawer");
+const overlay = document.querySelector(".mobile-overlay");
+
+function toggleMenu() {
+  drawer.classList.toggle("open");
+  overlay.classList.toggle("open");
+}
+
+menuBtn.addEventListener("click", toggleMenu);
+closeBtn.addEventListener("click", toggleMenu);
+overlay.addEventListener("click", toggleMenu);
+</script>
+
+</body>
+  </html>
